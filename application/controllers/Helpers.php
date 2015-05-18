@@ -33,7 +33,7 @@ $helpers = array(
 );
 
 foreach( $helpers AS $helper ) {
-echo "<a href='".site_url("Demo_helpers/$helper")."' target='_blank'>$helper</a><br>";
+echo "<a href='".site_url("helpers/$helper")."' target='_blank'>$helper</a><br>";
 }
 }
 
@@ -523,26 +523,48 @@ echo is_countable('equipment'); // Returns FALSE
 public function language_helper() {
 $this->load->helper('language');
 
+//lang($line[, $for = ''[, $attributes = array()]])
 }
 
 public function number_helper() {
 $this->load->helper('number');
+
+//byte_format($num[, $precision = 1])
 
 }
 
 public function path_helper() {
 $this->load->helper('path');
 
+//set_realpath($path[, $check_existance = FALSE])
+
 }
 
 public function security_helper() {
 $this->load->helper('security');
-
+//xss_clean($str[, $is_image = FALSE])
+//sanitize_filename($filename)
+//do_hash($str[, $type = 'sha1'])
+//strip_image_tags($str)
+//encode_php_tags($str)
 }
 
 public function smiley_helper() {
+//DEPRECATED
 $this->load->helper('smiley');
+$this->load->library('table');
+$image_array = get_clickable_smileys(base_url('/smileys'), 'comments');
+$col_array = $this->table->make_columns($image_array, 8);
+$data['smiley_table'] = $this->table->generate($col_array);
+//$image_array = smiley_js("comment_textarea_alias", "comments");
+$str = 'Here are some smileys: :-)  ;-)';
+$str = parse_smileys($str, base_url('/smileys'));
+echo $str;
+$this->load->view('smiley_view', $data);
 
+//get_clickable_smileys($image_url[, $alias = ''[, $smileys = NULL]]
+//smiley_js([$alias = ''[, $field_id = ''[, $inline = TRUE]]])
+//parse_smileys([$str = ''[, $image_url = ''[, $smileys = NULL]]])
 }
 
 public function string_helper() {
@@ -622,15 +644,38 @@ $this->htmlp(ellipsize($str, 32, .5));
 public function typography_helper() {
 $this->load->helper('typography');
 
+//auto_typography($str[, $reduce_linebreaks = FALSE])
+//nl2br_except_pre($str)
+//entity_decode($str, $charset = NULL)
+
 }
 
 public function url_helper() {
 $this->load->helper('url');
 
+//site_url([$uri = ''[, $protocol = NULL]])
+//base_url($uri = '', $protocol = NULL)
+//current_url()
+//uri_string()
+//index_page()
+//anchor($uri = '', $title = '', $attributes = '')
+//anchor_popup($uri = '', $title = '', $attributes = FALSE)
+//mailto($email, $title = '', $attributes = '')
+//safe_mailto($email, $title = '', $attributes = '')
+//auto_link($str, $type = 'both', $popup = FALSE)
+//url_title($str, $separator = '-', $lowercase = FALSE)
+//prep_url($str = '')
+//redirect($uri = '', $method = 'auto', $code = NULL)
 }
 
 public function xml_helper() {
 $this->load->helper('xml');
+
+//xml_convert($str[, $protect_all = FALSE])
+
+$string = '<p>Here is a paragraph & an entity (&#123;).</p>';
+$string = xml_convert($string);
+echo $string;
 
 }
 

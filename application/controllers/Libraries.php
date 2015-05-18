@@ -44,7 +44,7 @@ $libraries = array(
 );
 
 foreach( $libraries AS $library ) {
-   echo "<a href='".site_url("Demo_libraries/$library")."' target='_blank'>$library</a><br>";
+   echo "<a href='".site_url("libraries/$library")."' target='_blank'>$library</a><br>";
 }
 }
 
@@ -108,12 +108,84 @@ echo $this->calendar->generate();
 }
 
 public function cart() {
+//DEPRECATED
 $this->load->library('cart');
+
+$data = array(
+        'id'      => 'sku_123ABC',
+        'qty'     => 1,
+        'price'   => 39.95,
+        'name'    => 'T-Shirt',
+        'options' => array('Size' => 'L', 'Color' => 'Red')
+);
+$this->cart->insert($data);
+
+$data = array(
+        'id'      => 'sku_123ABC',
+        'qty'     => 1,
+        'price'   => 39.95,
+        'name'    => 'T-Shirt',
+        'coupon'         => 'XMAS-50OFF'
+);
+$this->cart->insert($data);
+
+$data = array(
+        array(
+                'id'      => 'sku_123ABC',
+                'qty'     => 1,
+                'price'   => 39.95,
+                'name'    => 'T-Shirt',
+                'options' => array('Size' => 'L', 'Color' => 'Red')
+        ),
+        array(
+                'id'      => 'sku_567ZYX',
+                'qty'     => 1,
+                'price'   => 9.95,
+                'name'    => 'Coffee Mug'
+        ),
+        array(
+                'id'      => 'sku_965QRS',
+                'qty'     => 1,
+                'price'   => 29.95,
+                'name'    => 'Shot Glass'
+        )
+);
+$this->cart->insert($data);
+
+$data = array(
+        'rowid' => 'b99ccdf16028f015540f341130b6d8ec',
+        'qty'   => 3
+);
+$this->cart->update($data);
+
+//$product_id_rules = '.a-z0-9_-'
+//$product_name_rules = 'w -.:'
+//$product_name_safe = TRUE
+//insert([$items = array()])
+//update([$items = array()])
+//remove($rowid)
+//total()
+//total_items()
+//contents([$newest_first = FALSE])
+//get_item($row_id)
+//has_options($row_id = '')
+//product_options([$row_id = ''])
+//destroy()
 }
 
 public function config() {
 $this->config->load('filename');
-
+//$this->config->item('item name');
+//$lang = $this->config->item('language');
+//$config
+//$is_loaded
+//item($item[, $index=''])
+//set_item($item, $value)
+//slash_item($item)
+//load([$file = ''[, $use_sections = FALSE[, $fail_gracefully = FALSE]]])
+//site_url()
+//base_url()
+//system_url()
 }
 
 public function email() {
@@ -132,16 +204,47 @@ $this->email->bcc('them@their-example.com');
 $this->email->subject('Email Test');
 $this->email->message('Testing the email class.');
 $this->email->send();
+
+//from($from[, $name = ''[, $return_path = NULL]])
+//reply_to($replyto[, $name = ''])
+//to($to)
+//cc($cc)
+//bcc($bcc[, $limit = ''])
+//subject($subject)
+//message($body)
+//set_alt_message($str)
+//set_header($header, $value)
+//clear([$clear_attachments = FALSE])
+//send([$auto_clear = TRUE])
+//attach($filename[, $disposition = ''[, $newname = NULL[, $mime = '']]])
+//attachment_cid($filename)
+//print_debugger([$include = array('headers', 'subject', 'body')])
+
+
 }
 
 public function encrypt() {
+//DEPRECATED
 $this->load->library('encrypt');
+
+//$config['encryption_key'] = "YOUR KEY";
+//encode($string[, $key = ''])
+//decode($string[, $key = ''])
+//set_cipher($cipher)
+//set_mode($mode)
+//encode_from_legacy($string[, $legacy_mode = MCRYPT_MODE_ECB[, $key = '']])
 
 }
 
 public function encryption() {
 $this->load->library('encryption');
-
+//$config['encryption_key'] = 'YOUR KEY';
+//$key = bin2hex($this->encryption->create_key(16));
+//initialize($params)
+//encrypt($data[, $params = NULL])
+//decrypt($data[, $params = NULL])
+//create_key($length)
+//hkdf($key[, $digest = 'sha512'[, $salt = NULL[, $length = NULL[, $info = '']]]])
 }
 
 public function upload() {
@@ -151,29 +254,87 @@ public function upload() {
    $config['max_width']            = 1024;
    $config['max_height']           = 768;
    $this->load->library('upload', $config);
+//initialize([array $config = array()[, $reset = TRUE]])
+//do_upload([$field = 'userfile'])
+//display_errors([$open = '<p>'[, $close = '</p>']])
+//data([$index = NULL])
+
 }
 
 public function form_validation() {
 $this->load->library('form_validation');
+
+//set_rules($field[, $label = ''[, $rules = '']])
+//run([$group = ''])
+//set_message($lang[, $val = ''])
+//set_error_delimiters([$prefix = '<p>'[, $suffix = '</p>']])
+//set_data($data)
+//reset_validation()
+//error_array()
+//error_string([$prefix = ''[, $suffix = '']])
+//error($field[, $prefix = ''[, $suffix = '']])
+//has_rule($field)
 }
 
 public function ftp() {
 $this->load->library('ftp');
+
+//connect([$config = array()])
+//upload($locpath, $rempath[, $mode = 'auto'[, $permissions = NULL]])
+//download($rempath, $locpath[, $mode = 'auto'])
+//rename($old_file, $new_file[, $move = FALSE])
+//move($old_file, $new_file)
+//delete_file($filepath)
+//delete_dir($filepath)
+//list_files([$path = '.'])
+//mirror($locpath, $rempath)
+//mkdir($path[, $permissions = NULL])
+//chmod($path, $perm)
+//changedir($path[, $suppress_debug = FALSE])
+//close()
+
 }
 
 public function image_lib() {
 $this->load->library('image_lib');
+//initialize([$props = array()])
+//resize()
+//crop()
+//rotate()
+//watermark()
+//clear()
+//display_errors([$open = '<p>[, $close = '</p>']])
 }
 
 public function input() {
 print_r($this->input->raw_input_stream);
 print_r($this->input->input_stream('key', TRUE)); // XSS Clean
 print_r($this->input->input_stream('key', FALSE)); // No XSS filter
+
+//$raw_input_stream
+//post([$index = NULL[, $xss_clean = NULL]])
+//get([$index = NULL[, $xss_clean = NULL]])
+//post_get($index[, $xss_clean = NULL])
+//get_post($index[, $xss_clean = NULL])
+//cookie([$index = NULL[, $xss_clean = NULL]])
+//server($index[, $xss_clean = NULL])
+//input_stream([$index = NULL[, $xss_clean = NULL]])
+//set_cookie($name = ''[, $value = ''[, $expire = ''[, $domain = ''[, $path = '/'[, $prefix = ''[, $secure = FALSE[, $httponly = FALSE]]]]]]] | [ $array ] )
+//ip_address()
+//valid_ip($ip[, $which = ''])
+//user_agent([$xss_clean = NULL])
+//request_headers([$xss_clean = FALSE])
+//get_request_header($index[, $xss_clean = FALSE])
+//is_ajax_request()
+//is_cli_request()
+//method([$upper = FALSE])
+
 }
 
 public function javascript() {
 //DEPRECATED
 //$this->load->library('javascript');
+//$this->load->library('javascript',$array);
 $this->load->library(
         'javascript',
         array(
@@ -188,6 +349,28 @@ public function jquery() {
 //$this->load->library('javascript/jquery');
 $this->load->library('javascript/jquery', FALSE);
 $this->jquery->event('element_path', code_to_run());
+
+//$this->load->library('javascript/jquery', FALSE);
+//$this->jquery->event('element_path', code_to_run());
+//$this->jquery->effect([optional path] plugin name);
+//$this->jquery->hide(target, optional speed, optional extra information);
+//$this->jquery->show(target, optional speed, optional extra information);
+//$this->jquery->toggle(target);
+//$this->jquery->animate(target, parameters, optional speed, optional extra information);
+//$this->jquery->fadeIn(target,  optional speed, optional extra information);
+//$this->jquery->fadeOut(target,  optional speed, optional extra information);
+//$this->jquery->toggleClass(target, class)
+//$this->jquery->fadeIn(target,  optional speed, optional extra information);
+//$this->jquery->fadeOut(target,  optional speed, optional extra information);
+//$this->jquery->slideUp(target,  optional speed, optional extra information);
+//$this->jquery->slideDown(target,  optional speed, optional extra information);
+//$this->jquery->slideToggle(target,  optional speed, optional extra information);
+//$this->jquery->corner(target, corner_style);
+//$this->jquery->corner("#note", "cool tl br");
+//tablesorter()
+//modal()
+//calendar()
+
 }
 
 public function lang() {
@@ -195,14 +378,45 @@ $this->lang->load('filename', 'language');
 $this->lang->load(array('filename1', 'filename2'));
 $this->lang->line('language_key');
 $this->lang->line('misc_key', FALSE);
+
+//$this->lang->load('filename', 'language');
+//$this->lang->load(array('filename1', 'filename2'));
+//$this->lang->line('language_key');
+//$this->lang->line('misc_key', FALSE);
+//load($langfile[, $idiom = ''[, $return = FALSE[, $add_suffix = TRUE[, $alt_path = '']]]])
+//line($line[, $log_errors = TRUE])
+
 }
 
 public function load() {
+//library($library[, $params = NULL[, $object_name = NULL]])
+//driver($library[, $params = NULL[, $object_name]])
+//view($view[, $vars = array()[, return = FALSE]])
+//vars($vars[, $val = ''])
+//get_var($key)
+//get_vars()
+//clear_vars()
+//model($model[, $name = ''[, $db_conn = FALSE]])
+//database([$params = ''[, $return = FALSE[, $query_builder = NULL]]])
+//dbforge([$db = NULL[, $return = FALSE]])
+//dbutil([$db = NULL[, $return = FALSE]])
+//helper($helpers)
+//file($path[, $return = FALSE])
+//language($files[, $lang = ''])
+//config($file[, $use_sections = FALSE[, $fail_gracefully = FALSE]])
+//is_loaded($class)
+//add_package_path($path[, $view_cascade = TRUE])
+//remove_package_path([$path = ''])
+//get_package_paths([$include_base = TRUE])
 
 }
 
 public function migration() {
-
+//current()
+//error_string()
+//find_migrations()
+//latest()
+//version($target_version)
 }
 
 public function output() {
@@ -246,6 +460,20 @@ $this->output
         ->_display();
 exit;
 
+//$parse_exec_vars = TRUE;
+//set_output($output)
+//set_content_type($mime_type[, $charset = NULL])
+//get_content_type()
+//get_header($header)
+//get_output()
+//append_output($output)
+//set_header($header[, $replace = TRUE])
+//set_status_header([$code = 200[, $text = '']])
+//enable_profiler([$val = TRUE])
+//set_profiler_sections($sections)
+//cache($time)
+//_display([$output = ''])
+
 }
 
 public function pagination() {
@@ -254,8 +482,10 @@ $config['base_url'] = 'http://example.com/index.php/test/page/';
 $config['total_rows'] = 200;
 $config['per_page'] = 20;
 $this->pagination->initialize($config);
-
 echo $this->pagination->create_links();
+
+//initialize([$params = array()])
+//create_links()
 }
 
 public function parser() {
@@ -266,10 +496,21 @@ $data = array(
 );
 $this->parser->parse('blog_template', $data);
 //$string = $this->parser->parse('blog_template', $data, TRUE);
+//parse($template, $data[, $return = FALSE])
+//parse_string($template, $data[, $return = FALSE])
+//set_delimiters([$l = '{'[, $r = '}']])
+
 }
 
 public function security() {
 $data = $this->security->xss_clean($data);
+//xss_clean($str[, $is_image = FALSE])
+//sanitize_filename($str[, $relative_path = FALSE])
+//get_csrf_token_name()
+//get_csrf_hash()
+//entity_decode($str[, $charset = NULL])
+//get_random_bytes($length)
+
 }
 
 public function session() {

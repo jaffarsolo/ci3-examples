@@ -5,14 +5,36 @@
  * contains a demonstration of core php magic methods
  */
 
-echo htmlp(__LINE__);
-echo htmlp(__FILE__);
-echo htmlp(__DIR__);
-echo htmlp(__FUNCTION__);
-echo htmlp(__CLASS__);
-echo htmlp(__TRAIT__);
-echo htmlp(__METHOD__);
-echo htmlp(__NAMESPACE__);
+namespace A {
+class testing
+{
+	function __construct() {}
+	function func()
+	{
+		echo htmlp("LINE : ".__LINE__);
+		echo htmlp("FILE : ".__FILE__);
+		echo htmlp("DIR : ".__DIR__);
+		echo htmlp("FUNCTION : ".__FUNCTION__);
+		echo htmlp("CLASS : ".__CLASS__);
+		echo htmlp("TRAIT : ".__TRAIT__);
+		echo htmlp("METHOD : ".__METHOD__);
+		echo htmlp("NAMESPACE : ".__NAMESPACE__);
+	}
+}
+
+echo htmlp("LINE : ".__LINE__);
+echo htmlp("FILE : ".__FILE__);
+echo htmlp("DIR : ".__DIR__);
+echo htmlp("FUNCTION : ".__FUNCTION__);
+echo htmlp("CLASS : ".__CLASS__);
+echo htmlp("TRAIT : ".__TRAIT__);
+echo htmlp("METHOD : ".__METHOD__);
+echo htmlp("NAMESPACE : ".__NAMESPACE__);
+echo htmlp("");
+echo htmlp("TESTING CLASS");
+
+$obj = new testing();
+$obj->func();
 
 //get_class()
 //get_object_vars()
@@ -20,4 +42,5 @@ echo htmlp(__NAMESPACE__);
 //function_exists()
 
 function htmlp($str) { return "<p>".$str."</p>"; }
+}
 ?>
